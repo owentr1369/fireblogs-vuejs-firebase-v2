@@ -1,10 +1,5 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import Home from "../views/Home.vue";
-import Blogs from "../views/Blogs.vue";
-import Login from "../views/Login.vue";
-import Register from "../views/Register.vue";
-import ForgotPassword from "../views/ForgotPassword.vue";
 
 Vue.use(VueRouter);
 
@@ -12,7 +7,7 @@ const routes = [
   {
     path: "/",
     name: "Home",
-    component: Home,
+    component: () => import(/* webpackChunkName: "home" */ "../views/Home.vue"),
     meta: {
       title: "Home",
     },
@@ -20,7 +15,8 @@ const routes = [
   {
     path: "/blogs",
     name: "Blogs",
-    component: Blogs,
+    component: () =>
+      import(/* webpackChunkName: "blogs" */ "../views/Blogs.vue"),
     meta: {
       title: "Blogs",
     },
@@ -28,7 +24,8 @@ const routes = [
   {
     path: "/login",
     name: "Login",
-    component: Login,
+    component: () =>
+      import(/* webpackChunkName: "auth" */ "../views/Login.vue"),
     meta: {
       title: "Login",
     },
@@ -36,7 +33,8 @@ const routes = [
   {
     path: "/register",
     name: "Register",
-    component: Register,
+    component: () =>
+      import(/* webpackChunkName: "auth" */ "../views/Register.vue"),
     meta: {
       title: "Register",
     },
@@ -44,9 +42,19 @@ const routes = [
   {
     path: "/forgot-password",
     name: "ForgotPassword",
-    component: ForgotPassword,
+    component: () =>
+      import(/* webpackChunkName: "auth" */ "../views/ForgotPassword.vue"),
     meta: {
       title: "Forgot Password",
+    },
+  },
+  {
+    path: "/create-blog",
+    name: "Create Blog",
+    component: () =>
+      import(/* webpackChunkName: "blogs" */ "../views/CreateBlog.vue"),
+    meta: {
+      title: "Create Blog",
     },
   },
 ];

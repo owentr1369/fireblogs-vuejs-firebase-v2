@@ -13,9 +13,9 @@
           </div>
         </div>
         <button>Reset</button>
-        <div class="angle" />
+        <div class="angle"></div>
       </form>
-      <div class="background" />
+      <div class="background"></div>
     </div>
   </div>
 </template>

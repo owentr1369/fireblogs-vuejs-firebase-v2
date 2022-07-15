@@ -10,7 +10,7 @@
         <ul v-show="!mobile">
           <router-link class="link" :to="{ name: 'Home' }">Home</router-link>
           <router-link class="link" :to="{ name: 'Blogs' }">Blogs</router-link>
-          <router-link class="link" :to="{ name: 'Blogs' }"
+          <router-link class="link" :to="{ name: 'Create Blog' }"
             >Create Post</router-link
           >
           <router-link class="link" :to="{ name: 'Login' }"
@@ -24,7 +24,7 @@
       <ul class="mobile-nav" v-show="mobileNav">
         <router-link class="link" :to="{ name: 'Home' }">Home</router-link>
         <router-link class="link" :to="{ name: 'Blogs' }">Blogs</router-link>
-        <router-link class="link" :to="{ name: 'Blogs' }"
+        <router-link class="link" :to="{ name: 'Create Blog' }"
           >Create Post</router-link
         >
         <router-link class="link" :to="{ name: 'Login' }"
