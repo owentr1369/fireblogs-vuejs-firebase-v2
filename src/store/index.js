@@ -32,7 +32,6 @@ export default new Vuex.Store({
   mutations: {
     toggleEditPost(state, payload) {
       state.editPosts = payload;
-      console.log(state.editPosts);
     },
   },
   actions: {},

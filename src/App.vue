@@ -11,6 +11,10 @@
 <script>
 import NavigationComp from "@/components/NavigationComp.vue";
 import FooterComp from "@/components/FooterComp.vue";
+import firebase from "firebase/app";
+import "firebase/auth";
+import db from "../src/firebase/firebaseInit";
+
 export default {
   name: "app",
   components: { NavigationComp, FooterComp },
@@ -21,6 +25,7 @@ export default {
   },
   created() {
     this.checkRoute();
+    console.log(firebase.auth().currentUser);
   },
   mounted() {},
   methods: {
