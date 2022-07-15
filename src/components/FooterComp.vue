@@ -56,6 +56,11 @@ export default {
     instagram,
     linkedin,
   },
+  data() {
+    return {
+      user: null,
+    };
+  },
 };
 </script>
 

@@ -1,3 +1,4 @@
+<!-- eslint-disable vue/multi-word-component-names -->
 <template>
   <div class="form-wrap">
     <form class="register">
@@ -22,21 +23,21 @@
           <User class="icon" />
         </div>
         <div class="input">
-          <input type="text" placeholder="Email" v-model="email" />
+          <input type="email" placeholder="Email" v-model="email" />
           <Email class="icon" />
         </div>
         <div class="input">
           <input type="password" placeholder="Password" v-model="password" />
           <Password class="icon" />
         </div>
-        <div class="error" v-show="error">
-          {{ this.errorMsg }}
+        <div class="error" v-if="error">
+          {{ errorMsg }}
         </div>
       </div>
-      <button>Sign Up</button>
-      <div class="angle" />
+      <button @click.prevent="register">Sign Up</button>
+      <div class="angle"></div>
     </form>
-    <div class="background" />
+    <div class="background"></div>
   </div>
 </template>
 
@@ -53,22 +54,22 @@ export default {
   name: "Register",
   data() {
     return {
-      firstName: null,
-      lastName: null,
-      username: null,
-      email: null,
-      password: null,
-      error: null,
-      errorMsg: "",
+      firstName: "",
+      lastName: "",
+      username: "",
+      email: "",
+      password: "",
+      error: false,
+      errorMsg: "Hello",
     };
   },
   methods: {
     async register() {
       if (
-        this.email !== "" ||
-        this.password !== "" ||
-        this.firstName !== "" ||
-        this.lastName !== "" ||
+        this.email !== "" &&
+        this.password !== "" &&
+        this.firstName !== "" &&
+        this.lastName !== "" &&
         this.username !== ""
       ) {
         this.error = false;
@@ -80,15 +81,14 @@ export default {
         );
         const result = await createUser;
         const dataBase = db.collection("users").doc(result.user.uid);
+        console.log("Hello");
+        this.$router.push({ name: "Home" });
         await dataBase.set({
           firstName: this.firstName,
           lastName: this.lastName,
           username: this.username,
           email: this.email,
         });
-
-        this.$router.push({ name: "Home" });
-        return;
       }
       this.error = true;
       this.errorMsg = "Please fill out all the fields!";
