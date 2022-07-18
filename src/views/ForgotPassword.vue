@@ -36,8 +36,6 @@ import Modal from "../components/Modal.vue";
 import Loading from "../components/Loading.vue";
 import firebase from "firebase/app";
 import "firebase/auth";
-import e from "express";
-// import db from "../src/firebase/firebaseInit";
 
 export default {
   components: { Email, Modal, Loading },
