@@ -66,7 +66,7 @@
         <router-link class="link" :to="{ name: 'Create Blog' }"
           >Create Post</router-link
         >
-        <router-link class="link" :to="{ name: 'Login' }"
+        <router-link v-if="!user" class="link" :to="{ name: 'Login' }"
           >Login/Register</router-link
         >
       </ul>

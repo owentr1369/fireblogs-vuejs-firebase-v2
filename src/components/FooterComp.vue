@@ -50,16 +50,17 @@ import instagram from "../assets/Icons/instagram-brands.svg";
 import linkedin from "../assets/Icons/linkedin-brands.svg";
 export default {
   name: "footer-vue",
+
   components: {
     youTube,
     twitter,
     instagram,
     linkedin,
   },
-  data() {
-    return {
-      user: null,
-    };
+  computed: {
+    user() {
+      return this.$store.state.user;
+    },
   },
 };
 </script>
