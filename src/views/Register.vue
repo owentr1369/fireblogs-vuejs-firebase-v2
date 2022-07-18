@@ -81,14 +81,15 @@ export default {
         );
         const result = await createUser;
         const dataBase = db.collection("users").doc(result.user.uid);
-        console.log("Hello");
-        this.$router.push({ name: "Home" });
+
         await dataBase.set({
           firstName: this.firstName,
           lastName: this.lastName,
           username: this.username,
           email: this.email,
         });
+        console.log("Hello");
+        this.$router.push({ name: "Home" });
       }
       this.error = true;
       this.errorMsg = "Please fill out all the fields!";
