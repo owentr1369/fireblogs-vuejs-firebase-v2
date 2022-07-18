@@ -45,7 +45,6 @@ export default new Vuex.Store({
     },
     updateUser(state, payload) {
       state.user = payload;
-      console.log("state.user", state.user);
     },
     setProfileInfo(state, doc) {
       state.profileId = doc.id;
@@ -57,7 +56,15 @@ export default new Vuex.Store({
     setProfileInitials(state) {
       state.profileInitials =
         state.profileFirstName.charAt(0) + state.profileLastName.charAt(0);
-      console.log("this.profileInitials", this.profileInitials);
+    },
+    changeFirstName(state, payload) {
+      state.profileFirstName = payload;
+    },
+    changeLastName(state, payload) {
+      state.profileLastName = payload;
+    },
+    changeUsername(state, payload) {
+      state.profileUsername = payload;
     },
   },
   actions: {

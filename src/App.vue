@@ -28,10 +28,6 @@ export default {
       this.$store.commit("updateUser", user);
       if (user) {
         this.$store.dispatch("getCurrentUser");
-        console.log(
-          "this.$store.state.profileEmail",
-          this.$store.state.profileEmail
-        );
       }
     });
     this.checkRoute();

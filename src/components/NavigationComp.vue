@@ -120,10 +120,6 @@ export default {
   created() {
     window.addEventListener("resize", this.checkScreen);
     this.checkScreen();
-    console.log(
-      "this.$store.state.profileInitials",
-      this.$store.state.profileInitials
-    );
   },
   computed: {
     user() {

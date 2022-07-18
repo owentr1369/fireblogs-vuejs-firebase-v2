@@ -63,6 +63,10 @@ export default {
     },
     lastName: {
       get() {
+        console.log(
+          "this.$store.state.profileLastName",
+          this.$store.state.profileLastName
+        );
         return this.$store.state.profileLastName;
       },
       set(payload) {

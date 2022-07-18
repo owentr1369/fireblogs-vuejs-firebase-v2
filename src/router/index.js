@@ -63,7 +63,7 @@ const routes = [
     component: () =>
       import(/* webpackChunkName: "blogs" */ "../views/Profile.vue"),
     meta: {
-      title: "Create Blog",
+      title: "Profile",
     },
   },
   {

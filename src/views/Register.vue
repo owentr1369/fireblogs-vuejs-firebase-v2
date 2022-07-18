@@ -88,7 +88,6 @@ export default {
           username: this.username,
           email: this.email,
         });
-        console.log("Hello");
         this.$router.push({ name: "Home" });
       }
       this.error = true;
