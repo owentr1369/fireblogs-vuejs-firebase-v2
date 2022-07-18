@@ -57,6 +57,24 @@ const routes = [
       title: "Create Blog",
     },
   },
+  {
+    path: "/profile",
+    name: "Profile",
+    component: () =>
+      import(/* webpackChunkName: "blogs" */ "../views/Profile.vue"),
+    meta: {
+      title: "Create Blog",
+    },
+  },
+  {
+    path: "/admin",
+    name: "Admin",
+    component: () =>
+      import(/* webpackChunkName: "blogs" */ "../views/Admin.vue"),
+    meta: {
+      title: "Admin",
+    },
+  },
 ];
 
 const router = new VueRouter({
