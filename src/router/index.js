@@ -49,19 +49,10 @@ const routes = [
     },
   },
   {
-    path: "/create-blog",
-    name: "Create Blog",
-    component: () =>
-      import(/* webpackChunkName: "blogs" */ "../views/CreateBlog.vue"),
-    meta: {
-      title: "Create Blog",
-    },
-  },
-  {
     path: "/profile",
     name: "Profile",
     component: () =>
-      import(/* webpackChunkName: "blogs" */ "../views/Profile.vue"),
+      import(/* webpackChunkName: "profile" */ "../views/Profile.vue"),
     meta: {
       title: "Profile",
     },
@@ -70,9 +61,18 @@ const routes = [
     path: "/admin",
     name: "Admin",
     component: () =>
-      import(/* webpackChunkName: "blogs" */ "../views/Admin.vue"),
+      import(/* webpackChunkName: "profile" */ "../views/Admin.vue"),
     meta: {
       title: "Admin",
+    },
+  },
+  {
+    path: "/create-post",
+    name: "CreatePost",
+    component: () =>
+      import(/* webpackChunkName: "blogs" */ "../views/CreatePost.vue"),
+    meta: {
+      title: "Create Post",
     },
   },
 ];
