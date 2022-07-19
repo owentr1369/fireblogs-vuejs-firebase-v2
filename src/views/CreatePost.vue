@@ -3,7 +3,7 @@
     <BlogPhotoPreview
       v-show="this.$store.state.blogPhotoPreview"
     ></BlogPhotoPreview>
-
+    <Loading v-show="loading"></Loading>
     <div class="container">
       <div :class="{ invisible: !error }" class="err-message">
         <p><span>Error:</span> {{ this.errorMsg }}</p>
@@ -49,25 +49,28 @@
 </template>
 
 <script>
-import Quill from "quill";
 import BlogPhotoPreview from "../components/BlogPhotoPreview.vue";
+import Loading from "../components/Loading.vue";
 
 import firebase from "firebase/app";
 import "firebase/storage";
 import db from "../firebase/firebaseInit";
 
+import Quill from "quill";
+import { VueEditor } from "vue2-editor";
 window.Quill = Quill;
 const ImageResize = require("quill-image-resize-module").default;
 Quill.register("modules/imageResize", ImageResize);
-import { VueEditor } from "vue2-editor";
 
 export default {
-  components: { BlogPhotoPreview, VueEditor },
+  components: { BlogPhotoPreview, VueEditor, Loading },
   data() {
     return {
+      loading: null,
       file: null,
       error: null,
       errorMsg: null,
+
       editorSettings: {
         modules: {
           imageResize: {},
@@ -107,6 +110,7 @@ export default {
     uploadBlog() {
       if (this.blogTitle.length !== 0 && this.blogHTML.length !== 0) {
         if (this.file) {
+          this.loading = true;
           const storageRef = firebase.storage().ref();
           const docRef = storageRef.child(
             `documents/BlogCoverPhotos/${this.$store.state.blogPhotoName}`
@@ -118,6 +122,7 @@ export default {
             },
             (err) => {
               console.log("err", err);
+              this.loading = false;
             },
             async () => {
               const downloadURL = await docRef.getDownloadURL();
@@ -133,6 +138,7 @@ export default {
                 profileId: this.profileId,
                 date: timestamp,
               });
+              this.loading = false;
               this.$router.push({ name: "ViewBlog" });
             }
           );
