@@ -1,5 +1,8 @@
 <template>
   <div class="create-post">
+    <BlogPhotoPreview
+      v-show="this.$store.state.blogPhotoPreview"
+    ></BlogPhotoPreview>
     <div class="container">
       <div :class="{ invisible: !error }" class="err-message">
         <p><span>Error:</span> {{ this.errorMsg }}</p>
@@ -14,10 +17,12 @@
             name=""
             id="blog-photo"
             accept=".png, .jpg, .jpeg"
+            @change="fileChange"
           />
           <button
             class="preview"
-            :class="{ 'button-inactive': !this.$store.state.blogPhotoFileUrl }"
+            :class="{ 'button-inactive': !this.$store.state.blogPhotoFileURL }"
+            @click="openPreview"
           >
             Preview your Photo
           </button>
@@ -26,7 +31,7 @@
       </div>
       <div class="editor">
         <vue-editor
-          :editorOptions="editorOptions"
+          :editorOptions="editorSettings"
           v-model="blogHTML"
           userCustomImageHandler
         ></vue-editor>
@@ -41,12 +46,15 @@
 
 <script>
 import Quill from "quill";
+import BlogPhotoPreview from "../components/BlogPhotoPreview.vue";
 window.Quill = Quill;
 const ImageResize = require("quill-image-resize-module").default;
 Quill.register("modules/imageResize", ImageResize);
 export default {
+  components: { BlogPhotoPreview },
   data() {
     return {
+      file: null,
       error: null,
       errorMsg: null,
       editorSettings: {
@@ -55,6 +63,17 @@ export default {
         },
       },
     };
+  },
+  methods: {
+    fileChange() {
+      this.file = this.$refs.blogPhoto.files[0];
+      const fileName = this.file.name;
+      this.$store.commit("fileNameChange", fileName);
+      this.$store.commit("createFileURL", URL.createObjectURL(this.file));
+    },
+    openPreview() {
+      this.$store.commit("openPhotoPreview");
+    },
   },
   computed: {
     profileId() {

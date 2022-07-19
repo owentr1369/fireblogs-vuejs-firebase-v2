@@ -63,7 +63,7 @@
       <ul class="mobile-nav" v-show="mobileNav">
         <router-link class="link" :to="{ name: 'Home' }">Home</router-link>
         <router-link class="link" :to="{ name: 'Blogs' }">Blogs</router-link>
-        <router-link class="link" v-if="admin" :to="{ name: 'CreatePost ' }"
+        <router-link class="link" v-if="admin" :to="{ name: 'CreatePost' }"
           >Create Post</router-link
         >
         <router-link v-if="!user" class="link" :to="{ name: 'Login' }"
