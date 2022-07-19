@@ -75,6 +75,15 @@ const routes = [
       title: "Create Post",
     },
   },
+  {
+    path: "/post-preview",
+    name: "BlogPreview",
+    component: () =>
+      import(/* webpackChunkName: "blogs" */ "../views/BlogPreview.vue"),
+    meta: {
+      title: "Preview Blog Post",
+    },
+  },
 ];
 
 const router = new VueRouter({
