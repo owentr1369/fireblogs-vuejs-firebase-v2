@@ -13,19 +13,29 @@
           />
         </div>
         <span>{{ this.functionMsg }}</span>
-        <button class="button">Submit</button>
+        <button @click="addAdmin" class="button">Submit</button>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import firebase from "firebase/app";
+import "firebase/functions";
+
 export default {
   data() {
     return {
       adminEmail: "",
       functionMsg: null,
     };
+  },
+  methods: {
+    async addAdmin() {
+      const addAdmin = await firebase.functions().httpsCallable("addAdminRole");
+      const result = await addAdmin({ email: this.adminEmail });
+      this.functionMsg = result.data.message;
+    },
   },
 };
 </script>

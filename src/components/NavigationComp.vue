@@ -10,7 +10,7 @@
         <ul v-show="!mobile">
           <router-link class="link" :to="{ name: 'Home' }">Home</router-link>
           <router-link class="link" :to="{ name: 'Blogs' }">Blogs</router-link>
-          <router-link class="link" :to="{ name: 'Create Blog' }"
+          <router-link class="link" v-if="admin" :to="{ name: 'Create Blog' }"
             >Create Post</router-link
           >
           <router-link v-if="!user" class="link" :to="{ name: 'Login' }"
@@ -43,7 +43,7 @@
                   <p>Profile</p>
                 </router-link>
               </div>
-              <div class="option">
+              <div v-if="admin" class="option">
                 <router-link class="option" :to="{ name: 'Admin' }">
                   <adminIcon class="icon"></adminIcon>
                   <p>Admin</p>
@@ -63,7 +63,7 @@
       <ul class="mobile-nav" v-show="mobileNav">
         <router-link class="link" :to="{ name: 'Home' }">Home</router-link>
         <router-link class="link" :to="{ name: 'Blogs' }">Blogs</router-link>
-        <router-link class="link" :to="{ name: 'Create Blog' }"
+        <router-link class="link" v-if="admin" :to="{ name: 'Create Blog' }"
           >Create Post</router-link
         >
         <router-link v-if="!user" class="link" :to="{ name: 'Login' }"
@@ -81,6 +81,7 @@ import adminIcon from "../assets/Icons/user-crown-light.svg";
 import signOutIcon from "../assets/Icons/sign-out-alt-regular.svg";
 import firebase from "firebase/app";
 import "firebase/auth";
+import router from "../router";
 
 export default {
   name: "navigation",
@@ -114,7 +115,7 @@ export default {
     },
     signOut() {
       firebase.auth().signOut();
-      window.location.reload();
+      this.$router.push({ name: "Home" });
     },
   },
   created() {
@@ -124,6 +125,9 @@ export default {
   computed: {
     user() {
       return this.$store.state.user;
+    },
+    admin() {
+      return this.$store.state.profileAdmin;
     },
   },
 };

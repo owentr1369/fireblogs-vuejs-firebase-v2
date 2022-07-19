@@ -9,9 +9,13 @@
       <h2>Account Settings</h2>
       <div class="profile-info">
         <div class="initials">{{ $store.state.profileInitials }}</div>
-        <div class="admin-badge">
+        <div v-if="admin" class="admin-badge">
           <adminIcon class="icon"></adminIcon>
           <span>Admin</span>
+        </div>
+        <div v-else class="admin-badge">
+          <memberIcon class="icon"></memberIcon>
+          <span>Member</span>
         </div>
         <div class="input">
           <label for="firstName">First Name:</label>
@@ -38,9 +42,10 @@
 <script>
 import Modal from "../components/Modal.vue";
 import adminIcon from "../assets/Icons/user-crown-light.svg";
+import memberIcon from "../assets/Icons/user-alt-light.svg";
 
 export default {
-  components: { adminIcon, Modal },
+  components: { adminIcon, Modal, memberIcon },
   data() {
     return {
       modalMessage: "Changes were saved",
@@ -67,10 +72,6 @@ export default {
     },
     lastName: {
       get() {
-        console.log(
-          "this.$store.state.profileLastName",
-          this.$store.state.profileLastName
-        );
         return this.$store.state.profileLastName;
       },
       set(payload) {
@@ -87,6 +88,9 @@ export default {
     },
     email() {
       return this.$store.state.profileEmail;
+    },
+    admin() {
+      return this.$store.state.profileAdmin;
     },
   },
 };

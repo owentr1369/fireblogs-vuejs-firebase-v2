@@ -38,8 +38,10 @@ export default {
   name: "blog-post",
   props: ["post"],
   components: { ArrowIcon },
-  user() {
-    return this.$store.state.user;
+  computed: {
+    user() {
+      return this.$store.state.user;
+    },
   },
 };
 </script>
