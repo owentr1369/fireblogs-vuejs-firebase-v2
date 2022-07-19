@@ -35,7 +35,6 @@ export default new Vuex.Store({
     blogPhotoName: "",
     blogPhotoFileURL: null,
     blogPhotoPreview: null,
-
     editPosts: null,
     user: null,
     profileAdmin: null,

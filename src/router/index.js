@@ -84,6 +84,15 @@ const routes = [
       title: "Preview Blog Post",
     },
   },
+  {
+    path: "/view-blog",
+    name: "ViewBlog",
+    component: () =>
+      import(/* webpackChunkName: "blogs" */ "../views/ViewBlog.vue"),
+    meta: {
+      title: "View Blog",
+    },
+  },
 ];
 
 const router = new VueRouter({
