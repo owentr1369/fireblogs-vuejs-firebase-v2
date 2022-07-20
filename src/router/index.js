@@ -1,5 +1,7 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
+import firebase from "firebase/app";
+import "firebase/auth";
 
 Vue.use(VueRouter);
 
@@ -10,6 +12,7 @@ const routes = [
     component: () => import(/* webpackChunkName: "home" */ "../views/Home.vue"),
     meta: {
       title: "Home",
+      requiresAuth: false,
     },
   },
   {
@@ -19,6 +22,7 @@ const routes = [
       import(/* webpackChunkName: "blogs" */ "../views/Blogs.vue"),
     meta: {
       title: "Blogs",
+      requiresAuth: false,
     },
   },
   {
@@ -28,6 +32,7 @@ const routes = [
       import(/* webpackChunkName: "auth" */ "../views/Login.vue"),
     meta: {
       title: "Login",
+      requiresAuth: false,
     },
   },
   {
@@ -37,6 +42,7 @@ const routes = [
       import(/* webpackChunkName: "auth" */ "../views/Register.vue"),
     meta: {
       title: "Register",
+      requiresAuth: false,
     },
   },
   {
@@ -46,6 +52,7 @@ const routes = [
       import(/* webpackChunkName: "auth" */ "../views/ForgotPassword.vue"),
     meta: {
       title: "Forgot Password",
+      requiresAuth: false,
     },
   },
   {
@@ -55,6 +62,7 @@ const routes = [
       import(/* webpackChunkName: "profile" */ "../views/Profile.vue"),
     meta: {
       title: "Profile",
+      requiresAuth: true,
     },
   },
   {
@@ -64,6 +72,8 @@ const routes = [
       import(/* webpackChunkName: "profile" */ "../views/Admin.vue"),
     meta: {
       title: "Admin",
+      requiresAdmin: true,
+      requiresAuth: true,
     },
   },
   {
@@ -73,6 +83,8 @@ const routes = [
       import(/* webpackChunkName: "blogs" */ "../views/CreatePost.vue"),
     meta: {
       title: "Create Post",
+      requiresAdmin: true,
+      requiresAuth: true,
     },
   },
   {
@@ -82,6 +94,8 @@ const routes = [
       import(/* webpackChunkName: "blogs" */ "../views/BlogPreview.vue"),
     meta: {
       title: "Preview Blog Post",
+      requiresAdmin: true,
+      requiresAuth: true,
     },
   },
   {
@@ -91,6 +105,7 @@ const routes = [
       import(/* webpackChunkName: "blogs" */ "../views/ViewBlog.vue"),
     meta: {
       title: "View Blog",
+      requiresAuth: false,
     },
   },
   {
@@ -100,6 +115,7 @@ const routes = [
       import(/* webpackChunkName: "blogs" */ "../views/EditBlog.vue"),
     meta: {
       title: "Edit Blog Post",
+      requiresAdmin: true,
     },
   },
 ];
@@ -113,6 +129,29 @@ const router = new VueRouter({
 router.beforeEach((to, from, next) => {
   document.title = `${to.meta.title} | FireBlog`;
   next();
+});
+
+router.beforeEach(async (to, from, next) => {
+  let user = firebase.auth().currentUser;
+  let admin = null;
+  if (user) {
+    let token = await user.getIdTokenResult();
+    admin = token.claims.admin;
+  }
+  if (to.matched.some((res) => res.meta.requiresAuth)) {
+    if (user) {
+      if (to.matched.some((res) => res.meta.requiresAdmin)) {
+        if (admin) {
+          return next();
+        } else {
+          return next({ name: "Home" });
+        }
+      }
+      return next();
+    }
+    return next({ name: "Home" });
+  }
+  return next();
 });
 
 export default router;
