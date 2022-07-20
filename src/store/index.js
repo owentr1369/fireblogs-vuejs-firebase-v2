@@ -107,7 +107,6 @@ export default new Vuex.Store({
         }
       });
       state.postLoaded = true;
-      console.log("state.blogPosts", state.blogPosts);
     },
     async updateUserSettings({ commit, state }) {
       const dataBase = await db.collection("users").doc(state.profileId);

@@ -49,10 +49,6 @@ export default {
   },
   computed: {
     blogPostsFeed() {
-      console.log(
-        "this.$store.getters.blogPostsFeed",
-        this.$store.getters.blogPostsFeed
-      );
       return this.$store.getters.blogPostsFeed;
     },
     user() {
