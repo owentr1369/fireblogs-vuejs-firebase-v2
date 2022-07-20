@@ -93,6 +93,15 @@ const routes = [
       title: "View Blog",
     },
   },
+  {
+    path: "/edit-blog/:blogid",
+    name: "EditBlog",
+    component: () =>
+      import(/* webpackChunkName: "blogs" */ "../views/EditBlog.vue"),
+    meta: {
+      title: "Edit Blog Post",
+    },
+  },
 ];
 
 const router = new VueRouter({

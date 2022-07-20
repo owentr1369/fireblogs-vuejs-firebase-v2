@@ -12,7 +12,7 @@ export default new Vuex.Store({
     postLoaded: null,
     blogHTML: "Write your blog title here...",
     blogTitle: "",
-    blogPhotoName: "",
+    blogCoverPhotoName: "",
     blogPhotoFileURL: null,
     blogPhotoPreview: null,
     editPosts: null,
@@ -41,7 +41,7 @@ export default new Vuex.Store({
       state.blogTitle = payload;
     },
     fileNameChange(state, payload) {
-      state.blogPhotoName = payload;
+      state.blogCoverPhotoName = payload;
     },
     createFileURL(state, payload) {
       state.blogPhotoFileURL = payload;
@@ -51,6 +51,12 @@ export default new Vuex.Store({
     },
     toggleEditPost(state, payload) {
       state.editPosts = payload;
+    },
+    setBlogState(state, payload) {
+      state.blogTitle = payload.blogTitle;
+      state.blogHTML = payload.blogHTML;
+      state.blogCoverPhoto = payload.blogCoverPhoto;
+      state.blogCoverPhotoName = payload.blogCoverPhotoName;
     },
     filterBlogPost(state, payload) {
       state.blogPosts = state.blogPosts.filter((post) => {
@@ -107,11 +113,16 @@ export default new Vuex.Store({
             blogCoverPhoto: doc.data().blogCoverPhoto,
             blogTitle: doc.data().blogTitle,
             blogDate: doc.data().date,
+            blogCoverPhotoName: doc.data().blogCoverPhotoName,
           };
           state.blogPosts.push(data);
         }
       });
       state.postLoaded = true;
+    },
+    async updatePost({ commit, dispatch }, payload) {
+      commit("filterBlogPost", payload);
+      await dispatch("getPost");
     },
     async deletePost({ commit }, payload) {
       const getPost = await db.collection("blogPosts").doc(payload);
